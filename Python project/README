@@ -1,0 +1,93 @@
+mainAuthor: Gerard-Josep Alcalde Gascón
+Latest release date: 2022/01/10
+Version: 0.0.1
+
+1. Información general
+Esta es la documentación de la PEC4 de la asignatura Programación para la ciencia de datos del Máster en Ciencia de Datos de la UOC.
+
+2. Proyecto
+En este proyecto se han tratado 3 datasets que contenían información de distintos artistas musicales así como sus distintos tracks y álbumes. A partir de estos se ha generado un proyecto que analiza estos datos y genera distintas visualizaciones de sus distintos datos. Además proporciona un paquete de python con múltiples funciones de gran utilidad para el procesado de los datos de los datasets proporcionados, lo que permitiría obtener otras features u otros artistas distintos a los empleados en esta tarea.
+
+3. Ejecución del proyecto
+El proyecto se ejecuta con el archivo main.py, una vez ejecutado este por terminal desde el entorno virtual del proyecto, se deben seguir los pasos indicados por terminal, que nos solicitará que indique si queremos ejecutar alguna tarea de la práctica y que indiquemos su número. Para ello tenemos que abrir una ventana del terminal en la ruta del paquete y ejecutar:
+
+	source venv/bin/activate
+
+	python3 main.py  
+
+Con estas sentencia se ejecutará el programa y solo tendremos que seguir las indicaciones.
+
+4. Tareas incluidas en el programa
+4.1. Tarea 1
+La tarea 1 realiza un preprocesado de los datos, entre las tareas que incluye esta:
+- Crea un dataset que une los 3 datasets iniciales
+- Cambia el nombre de los artistas para que todas sus palabras empiecen por mayúscula
+- Gestiona la presencia de nulos en popularity
+- Gestiona la presencia de nulos en otras columnas
+- Cambia el nombre de algunas columnas para evitar coincidencias al unir los datasets
+
+Finalmente muestra por pantalla:
+- Número total de tracks y número de columnas del nuevo dataset.
+- Número de tracks que no tienen valor de popularity
+
+4.2. Tarea 2
+La tarea 2 implementa dos algoritmos para obtener una columna desde un fichero csv, uno implementando la librería externa pandas y el otro con métodos propios de Python. Finalmente, se mostrará un gráfico con una comparación del tiempo de ejecución de cada una de las alternativas.
+
+4.3. Tearea 3
+La tarea 3 ha consistido en obtener información a partir de los datasets aportados en los primeros apartados. Se han generado funciones que permiten:
+- Contar el número de tracks con una determinada palabra en una columna
+- Contar el número de tracks en una determinada década.
+- Determinar el track con mayor popularidad de los últimos años, basándonos en la popularidad del álbum, el artista o el track.
+- Buscar el número de artistas que han publicado albums en todos las décadas desde la década aportada.
+
+Por pantalla se muestra un ejemplo de las funcionalidades de estas funciones:
+- Número de tracks de Radiohead
+- Número de tracks que contienen police en su título
+- Número de tracks de álbum publicados en los años 90
+- Track con mayor popularidad en los últimos 10 años
+- Artistas con tracks en cada una de las décadas desde los año 60.
+
+4.4. Tarea 4
+Se realiza un estudio de las audio features de los artistas obteniendo estadísticas básicas que incluyen la media, el máximo y el mínimo.
+
+Se crean múltiples funciones, aunque las de mayor interés nos permiten:
+- Obtener las estadísticas básicas de un artista
+- Obtener el promedio de una estadística para cada álbum de un artista
+
+Con estas funciones mostraremos por pantalla:
+- Las estadísticas básicas de energy para Metallica
+- La media de danceability para cada álbum de Coldplay
+
+4.5. Tarea 5
+En esta tarea se realizará un histograma de una audio feature de un artista determinado.
+
+Como ejemplo se mostrará el histograma de la acousticness de Ed Sheeran
+
+4.6. Tarea 6
+En esta tarea se busca poder comparar visualmente a dos artistas por ello se ha buscado representar un histograma de una feature en concreto de los dos artistas.
+
+Como ejemplo se muestra el histograma de la energy de Adele y Extremadura
+
+4.7. Tarea 7
+En esta tarea se ha buscado generar un heatmap que muestre la similitud entre distintos artistas. Para buscar la similitud se ha empleado tanto la similitud euclidiana como la cocinas, por ello a modo de ejemplo se mostrará el heatmap con cada una de las similitudes mostrando una comparativa de Metallica, Extremadura, AC/DC y Hans Zimmer.
+
+4.8. Tarea 8
+Para complementar la información presente en este proyecto se decide optar por permitir adquirir más información de los artistas mediante una llamada a la API de AudioDB y almacenar su información en un cdv independiente donde se recogerá la información de nombre del artista, año de fundación y país.
+
+
+Esta tarea requiere que se realicen múltiples consultas que requieren de un tiempo de descarga, por lo que no exigirá un uso intensivo de la CPU. Un proceso secuencial podría requerir largos tiempos de espera, especialmente si el número de solicitudes aumenta, por ello se procede a realizar una implementación multi thread, ya que nos permitirá ejecutar múltiples procesos en un solo procesador, aprovechando el tiempo que no se utiliza la CPU para realizar otras consultas a la API.
+
+Aunque para nuestro caso de estudio pueda no ser necesario, esta implementación será de gran utilidad si el proyecto aumentara y se tuviesen que realizar muchas más descargas. Siendo una implementación que estará preparada para un futuro aumento de la demanda.
+
+La implementación multithread ha resultado en una disminución del tiempo de ejecución de 20s con la 1 solo thread a 6s con 3 threads y a 3,6s con 5 threads.
+
+
+5. Test
+5.1. Test execution
+Se puede verificar el correcto funcionamiento de las funciones mediante los test que se han implementado. Para ello emplearemos el código:
+	
+	python3 -m unittest -v test.test
+
+5.2. Test coverage
+Se verifica la cobertura del test y se obtiene que el 88% de las líneas de código se han cubierto. Por lo que obtenemos una cobertura del código suficientemente buena.
+

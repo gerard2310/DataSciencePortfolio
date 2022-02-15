@@ -1,0 +1,120 @@
+plugins {
+    id 'application'
+    id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'checkstyle'
+    //id "org.beryx.jlink" version "2.24.4" //uncomment for jlink
+}
+
+group 'edu.uoc'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+javafx {
+    version = "17.0.1"
+    modules = [ 'javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+javadoc{
+    options.memberLevel = JavadocMemberLevel.PRIVATE
+    options.encoding = "UTF-8"
+    options.author = true
+    destinationDir = file("docs")
+}
+
+task runCmdVersion(type: JavaExec) {
+    group = "Execution"
+    standardInput = System.in
+    description = "Run the cmd version"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "edu.uoc.trip.view.cmd.CmdApp"
+}
+
+task runGuiVersion(type: JavaExec) {
+    group = "Execution"
+    description = "Run the GUI version"
+    classpath = sourceSets.main.runtimeClasspath
+    jvmArgs = ['--module-path', classpath.asPath,
+               '--add-modules', 'javafx.controls',
+               '--add-modules', 'javafx.fxml']
+    mainClass = "edu.uoc.trip.view.gui.GuiApp"
+}
+
+task testSanity(type: Test) {
+    group = "Verification"
+    useJUnitPlatform {
+        includeTags "sanity"
+    }
+}
+
+task testMinimum(type: Test) {
+    group = "Verification"
+    useJUnitPlatform {
+        includeTags "minimum"
+    }
+}
+
+task testPassPractice(type: Test) {
+    group = "Verification"
+    useJUnitPlatform {
+        includeTags "sanity", "minimum"
+    }
+}
+
+task testAdvanced(type: Test) {
+    group = "Verification"
+    useJUnitPlatform {
+        includeTags "advanced"
+    }
+}
+
+task testController(type: Test) {
+    group = "Verification"
+    useJUnitPlatform {
+        includeTags "controller"
+    }
+}
+
+task testAll(type:Test){
+    group = "Verification"
+    useJUnitPlatform {
+        includeTags "sanity", "minimum", "advanced", "controller"
+    }
+}
+
+jar {
+    manifest {
+        attributes (
+            'Main-Class' : 'edu.uoc.trip.view.gui.Main'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it) }
+    } {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+}
+
+
+application{
+    mainModule = "edu.uoc.trip"
+    mainClassName = "edu.uoc.trip.view.gui.Main"
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"

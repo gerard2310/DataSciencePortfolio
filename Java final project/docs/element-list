@@ -1,0 +1,7 @@
+module:edu.uoc.trip
+edu.uoc.trip.controller
+edu.uoc.trip.model.cells
+edu.uoc.trip.model.levels
+edu.uoc.trip.model.utils
+edu.uoc.trip.view.cmd
+edu.uoc.trip.view.gui
